@@ -45,5 +45,9 @@
     <Compile Include="AssemblyInfo.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="RabbitsAndRecurrenceRelations.fsx" />
+    <None Include="MortalFibonnaciRabbits.fsx" />
+  </ItemGroup>
   <Import Project="$(FSharpTargetsPath)" />
 </Project>
