@@ -49,6 +49,7 @@
     <None Include="RabbitsAndRecurrenceRelations.fsx" />
     <None Include="MortalFibonnaciRabbits.fsx" />
     <None Include="ComputingGcContent.fsx" />
+    <None Include="FindingMotifInDna.fsx" />
   </ItemGroup>
   <Import Project="$(FSharpTargetsPath)" />
 </Project>
