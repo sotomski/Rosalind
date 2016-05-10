@@ -50,6 +50,7 @@
     <None Include="MortalFibonnaciRabbits.fsx" />
     <None Include="ComputingGcContent.fsx" />
     <None Include="FindingMotifInDna.fsx" />
+    <None Include="TranslatingRnaIntoProtein.fsx" />
   </ItemGroup>
   <Import Project="$(FSharpTargetsPath)" />
 </Project>
