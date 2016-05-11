@@ -1,4 +1,4 @@
-﻿// http://rosalind.info/problems/prot/
+﻿// http://rosalind.info/problems/mrna/
 
 let codonTable = [| ("UUU", "F"); ("CUU", "L"); ("AUU", "I"); ("GUU", "V");
                     ("UUC", "F"); ("CUC", "L"); ("AUC", "I"); ("GUC", "V");
@@ -10,24 +10,34 @@ let codonTable = [| ("UUU", "F"); ("CUU", "L"); ("AUU", "I"); ("GUU", "V");
                     ("UCG", "S"); ("CCG", "P"); ("ACG", "T"); ("GCG", "A");
                     ("UAU", "Y"); ("CAU", "H"); ("AAU", "N"); ("GAU", "D");
                     ("UAC", "Y"); ("CAC", "H"); ("AAC", "N"); ("GAC", "D");
-                    ("UAA", ""); ("CAA", "Q"); ("AAA", "K"); ("GAA", "E");
-                    ("UAG", ""); ("CAG", "Q"); ("AAG", "K"); ("GAG", "E");
+                    ("UAA", "_"); ("CAA", "Q"); ("AAA", "K"); ("GAA", "E");
+                    ("UAG", "_"); ("CAG", "Q"); ("AAG", "K"); ("GAG", "E");
                     ("UGU", "C"); ("CGU", "R"); ("AGU", "S"); ("GGU", "G");
                     ("UGC", "C"); ("CGC", "R"); ("AGC", "S"); ("GGC", "G");
-                    ("UGA", ""); ("CGA", "R"); ("AGA", "R"); ("GGA", "G");
+                    ("UGA", "_"); ("CGA", "R"); ("AGA", "R"); ("GGA", "G");
                     ("UGG", "W"); ("CGG", "R"); ("AGG", "R"); ("GGG", "G"); |]
 
-let translateRnaToProtein (rna:string) =
-    rna
-    |> Seq.chunkBySize 3
-    |> Seq.map (fun chunk -> System.String.Concat(chunk))
-    |> Seq.map (fun codon ->
-                    codonTable
-                    |> Seq.find (fun (code, _) -> if string codon = code then true else false))
-    |> Seq.map (fun (_, acid) -> acid)
-    |> System.String.Concat
-    |> printfn "%A"
+let aminoAcidCodonCount = 
+    codonTable 
+    |> Seq.countBy (fun (codon, aminoAcid) -> aminoAcid)
+    |> Seq.map (fun (a, c) -> (Seq.head a ,c))
 
-let input = "AUGGCCAUGGCGCCCAGAACUGAGAUCAAUAGUACCCGUAUUAACGGGUGA"
+let stopCount = 
+    let (_, count) = Seq.find (fun (a, c) -> a = '_') aminoAcidCodonCount
+    count
 
-translateRnaToProtein input //MAMAPRTEINSTRING
+let inferMrna protein = 0
+
+let main (input:string) =
+    let modFactor = 1000000
+
+    input
+    |> Seq.map (fun acid -> 
+        let (aa, cc) = Seq.find (fun (a, count) -> a = acid) aminoAcidCodonCount 
+        cc)
+    |> Seq.append [stopCount]
+    |> Seq.fold (fun s e -> (s * e) % modFactor) 1
+
+let input = "MA" // MA 12 = 3 x stop * 4*A * 1*M
+
+main input
