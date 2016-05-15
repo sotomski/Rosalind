@@ -52,6 +52,7 @@
     <None Include="FindingMotifInDna.fsx" />
     <None Include="TranslatingRnaIntoProtein.fsx" />
     <None Include="PitfallsOfReversingTranslation.fsx" />
+    <None Include="CountingPointMutations.fsx" />
   </ItemGroup>
   <Import Project="$(FSharpTargetsPath)" />
 </Project>
